@@ -23,30 +23,45 @@ function createMarkup(galleryItems) {
   </a>
 </div>`;
     }).join("");
-}
-let instance = "";
+};
+
 
 function onImageClick(event) {
   event.preventDefault();
   if (event.target.nodeName !== "IMG") {
     return;
   }
-  instance = basicLightbox.create(
+  const instance = basicLightbox.create(
     `
     <img src=${event.target.dataset.source}>
-`
-  );
-  instance.show();
+`, {   
+   onShow: (instance) => {
+    window.addEventListener("keydown", onEscCloseModal);    
+  }
+   
+  },
+       {
+     onClose: (instance) => {
+           window.removeEventListener("keydown", onEscCloseModal);
+      }
+    }
+     
+   );
+        
+        
+  instance.show(); 
 
-  document.addEventListener("keydown", onEscCloseModal);
-}
+};
 
 function onEscCloseModal(event) {
   if (event.code === "Escape") {
+
     instance.close();
-    document.removeEventListener("keydown", onEscCloseModal);
+  
   }
-}
+};
 
 
+
+ 
 
