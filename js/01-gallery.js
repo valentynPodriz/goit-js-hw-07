@@ -35,9 +35,8 @@ function onImageClick(event) {
 ` ,{
     onShow: (instance) => {
       document.addEventListener("keydown", onEscCloseModal);
-    }
     },
-    {  
+  
     onClose: (instence) => {
       onEscCloseModal(event);
       document.removeEventListener("keydown", onEscCloseModal);
